@@ -15,6 +15,10 @@
 			<% listings.forEach((listing) => { %>
 			<li>
 				A listing in <%= listing.city %> owned by <%= listing.owner.username %>
+				<br />
+				<br />
+				<a href="/listings/<%= listing._id %>">View more</a>
+				<br /><br />
 			</li>
 			<% }) %>
 		</ul>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="/global.css" />
+		<title><%= listings.name %></title>
+	</head>
+	<body>
+		<%- include('../partials/_navbar.ejs') %>
+
+		<h1>A listing in <%= listings.city %></h1>
+
+		<h2>Details</h2>
+		<p>House Size: <%= listings.size %> sq mtr</p>
+		<p>Price: BHD <%= listings.price %></p>
+		<p>Street address: <%= listings.streetAddress %></p>
+		<h2>Owner</h2>
+		<% if (listings.owner._id.equals(user._id)) { %>
+		<p>You own this!</p>
+		<% } else { %>
+		<p>You don't own this, <%= listings.owner.username %> does!</p>
+		<% } %>
+	</body>
+</html>
