@@ -37,4 +37,45 @@ router.get('/:listingId', async (req, res) => {
 	}
 })
 
+router.get('/:listingId/edit', async (req, res) => {
+	try {
+		const populatedListing = await Listing.findById(
+			req.params.listingId
+		).populate('owner')
+		res.render('listings/edit.ejs', { listing: populatedListing })
+	} catch (err) {
+		console.log(err)
+		res.redirect('/')
+	}
+})
+
+router.put('/:listingId', async (req, res) => {
+	try {
+		const populatedListing = await Listing.findById(
+			req.params.listingId
+		).populate('owner')
+		populatedListing.set(req.body)
+		await populatedListing.save()
+		res.redirect('/listings')
+	} catch (err) {
+		console.log(err)
+		res.redirect('/')
+	}
+})
+
+router.delete('/:listingId', async (req, res) => {
+	try {
+		const listing = await Listing.findById(req.params.listingId)
+		if (listing.owner.equals(req.session.user._id)) {
+			await listing.deleteOne()
+			res.redirect('/listings')
+		} else {
+			res.send("You don't have permission to do that.")
+		}
+	} catch (error) {
+		console.error(error)
+		res.redirect('/')
+	}
+})
+
 module.exports = router
