@@ -72,7 +72,9 @@ textarea {
 	font-family: 'Poppins', serif;
 }
 
-#general-input {
+#general-input,
+#username-input,
+#password-input {
 	display: flex;
 	flex-direction: column;
 	width: 50%;
