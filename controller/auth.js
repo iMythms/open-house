@@ -7,6 +7,14 @@ router.get('/sign-up', (req, res) => {
 	res.render('auth/sign-up.ejs')
 })
 
+const signedOut = (req, res) => {
+	req.session.destroy(() => {
+		res.redirect('/')
+	})
+}
+
+router.get('/sign-out', signedOut)
+
 router.post('/sign-up', async (req, res) => {
 	const userInDatabase = await User.findOne({ username: req.body.username })
 	if (userInDatabase) {
@@ -46,7 +54,9 @@ router.post('/sign-in', async (req, res) => {
 	req.session.user = {
 		username: userInDatabase.username,
 	}
-	res.redirect('/')
+	req.session.save(() => {
+		res.redirect('/')
+	})
 })
 
 module.exports = router

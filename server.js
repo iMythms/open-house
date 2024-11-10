@@ -5,12 +5,15 @@ const express = require('express')
 const app = express()
 
 const mongoose = require('mongoose')
+const MongoStore = require('connect-mongo')
 const methodOverride = require('method-override')
 const morgan = require('morgan')
 
 const session = require('express-session')
 
 const isSignedIn = require('./middleware/is-signed-in.js')
+const passUserToView = require('./middleware/pass-user-to-view.js')
+
 const PORT = process.env.PORT ? process.env.PORT : '3000'
 
 mongoose.connect(process.env.MONGODB_URI)
@@ -28,8 +31,13 @@ app.use(
 		secret: process.env.SESSION_SECRET,
 		resave: false,
 		saveUninitialized: true,
+		store: MongoStore.create({
+			mongoUrl: process.env.MONGODB_URI,
+		}),
 	})
 )
+
+app.use(passUserToView)
 
 app.get('/', async (req, res) => {
 	res.render('index.ejs', {

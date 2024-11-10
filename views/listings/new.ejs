@@ -9,14 +9,22 @@
 	<body>
 		<%- include('../partials/_navbar.ejs') %>
 		<form method="POST" action="/listings">
-			<label for="street-address">Street Address:</label>
-			<input type="text" name="streetAddress" id="street-address" />
-			<label for="city">City:</label>
-			<input type="text" name="city" id="city" />
-			<label for="price">Price:</label>
-			<input type="number" name="price" id="price" min="0" />
-			<label for="size">Size:</label>
-			<input type="number" name="size" id="size" min="0" />
+			<div id="general-input">
+				<label for="street-address">Street Address</label>
+				<input type="text" name="streetAddress" id="street-address" />
+			</div>
+			<div id="general-input">
+				<label for="city">City</label>
+				<input type="text" name="city" id="city" />
+			</div>
+			<div id="general-input">
+				<label for="price">Price</label>
+				<input type="number" name="price" id="price" min="0" />
+			</div>
+			<div id="general-input">
+				<label for="size">Size</label>
+				<input type="number" name="size" id="size" min="0" />
+			</div>
 			<button type="submit">Add Listing</button>
 		</form>
 	</body>

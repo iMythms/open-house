@@ -55,8 +55,24 @@ input {
 	border: 1px solid #bababa;
 }
 
-#username-input,
-#password-input {
+select {
+	padding: 5px 4px;
+	border-radius: 8px;
+	border: 1px solid #bababa;
+	margin-bottom: 32px;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+textarea {
+	padding: 5px 4px;
+	border-radius: 8px;
+	border: 1px solid #bababa;
+	font-family: 'Poppins', serif;
+}
+
+#general-input {
 	display: flex;
 	flex-direction: column;
 	width: 50%;
