@@ -10,6 +10,7 @@ const morgan = require('morgan')
 
 const session = require('express-session')
 
+const isSignedIn = require('./middleware/is-signed-in.js')
 const PORT = process.env.PORT ? process.env.PORT : '3000'
 
 mongoose.connect(process.env.MONGODB_URI)
@@ -38,7 +39,10 @@ app.get('/', async (req, res) => {
 
 // Require and use Controller
 const authController = require('./controller/auth')
+const listingController = require('./controller/listing')
+
 app.use('/auth', authController)
+app.use('/listings', isSignedIn, listingController)
 
 // Landing Page
 app.get('/', async (req, res) => {
