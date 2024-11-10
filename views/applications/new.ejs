@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="/global.css" />
+		<title>New</title>
+	</head>
+	<body>
+		<%- include('../partials/_navbar.ejs') %>
+		<h1>Add a new app</h1>
+		<form action="/users/<%= user._id %>/applications" method="POST">
+			<div id="password-input">
+				<label for="company">Company:</label>
+				<input type="text" name="company" id="company" />
+			</div>
+
+			<div id="password-input">
+				<label for="title">Title:</label>
+				<input type="text" name="title" id="title" />
+			</div>
+
+			<div id="password-input">
+				<label for="notes">Notes:</label>
+				<textarea name="notes" id="notes"></textarea>
+			</div>
+
+			<div id="password-input">
+				<label for="postingLink">Posting Link:</label>
+				<input type="text" name="postingLink" id="postingLink" />
+			</div>
+
+			<div id="password-input">
+				<label for="status">Status:</label>
+				<select id="status" name="status">
+					<option value="interested">Interested</option>
+					<option value="applied">Applied</option>
+					<option value="interviewing">Interviewing</option>
+					<option value="rejected">Rejected</option>
+					<option value="accepted">Accepted</option>
+				</select>
+			</div>
+
+			<!-- Add a submit button -->
+			<button type="submit">Add Application</button>
+		</form>
+	</body>
+</html>
