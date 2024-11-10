@@ -4,6 +4,10 @@ const router = express.Router()
 
 const Listing = require('../models/listing')
 
+router.get('/', async (req, res) => {
+	res.render('listings/index.ejs')
+})
+
 router.get('/new', async (req, res) => {
 	res.render('listings/new.ejs')
 })
