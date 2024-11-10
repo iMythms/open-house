@@ -10,9 +10,6 @@ const morgan = require('morgan')
 
 const session = require('express-session')
 
-const isSignedIn = require('./middleware/is-signed-in.js')
-const passUserToView = require('./middleware/pass-user-to-view.js')
-
 const PORT = process.env.PORT ? process.env.PORT : '3000'
 
 mongoose.connect(process.env.MONGODB_URI)
@@ -33,25 +30,22 @@ app.use(
 	})
 )
 
-app.use(passUserToView)
-
-// Landing Page
-app.get('/', (req, res) => {
-	if (req.session.user) {
-		console.log(req.session.user)
-		res.redirect(`/users/${req.session.user._id}/applications`)
-	} else {
-		res.render('index.ejs')
-	}
+app.get('/', async (req, res) => {
+	res.render('index.ejs', {
+		user: req.session.user,
+	})
 })
 
 // Require and use Controller
 const authController = require('./controller/auth')
-const applicationsController = require('./controller/applications')
+app.use('/auth', authController)
+
+// Landing Page
+app.get('/', async (req, res) => {
+	res.render('index.ejs')
+})
 
 app.use('/auth', authController)
-app.use(isSignedIn)
-app.use('/users/:userId/applications', applicationsController)
 
 app.listen(PORT, () => {
 	console.log(`Running on localhost:${PORT}`)

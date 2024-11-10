@@ -4,11 +4,23 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="stylesheet" href="/global.css" />
-		<title>Skyrockit</title>
+		<title>Home Page</title>
 	</head>
 	<body>
-		<%- include('./partials/_navbar.ejs') %>
-		<h1>Skyrockit</h1>
-		<p>A job application tracker.</p>
+		<h1>MEN STACK Auth app!</h1>
+
+		<% if(user) { %>
+		<h2>Welcome <%= user.username %></h2>
+		<% } else { %>
+		<h2>Guest mode</h2>
+		<div id="buttons-index">
+			<button type="button">
+				<a href="./auth/sign-up">Sign up</a>
+			</button>
+			<button type="button">
+				<a href="./auth/sign-in">Sign in</a>
+			</button>
+		</div>
+		<% } %>
 	</body>
 </html>
