@@ -30,7 +30,14 @@ router.get('/:listingId', async (req, res) => {
 		const populatedListing = await Listing.findById(
 			req.params.listingId
 		).populate('owner')
-		res.render('listings/show.ejs', { listings: populatedListing })
+
+		const userHasLiked = populatedListing.likedByUsers.some((user) =>
+			user.equals(req.session.user._id)
+		)
+		res.render('listings/show.ejs', {
+			listings: populatedListing,
+			userHasLiked: userHasLiked,
+		})
 	} catch (err) {
 		console.log(err)
 		res.redirect('/')
@@ -72,6 +79,18 @@ router.delete('/:listingId', async (req, res) => {
 		} else {
 			res.send("You don't have permission to do that.")
 		}
+	} catch (error) {
+		console.error(error)
+		res.redirect('/')
+	}
+})
+
+router.post('/:listingId/liked-by/:userId', async (req, res) => {
+	try {
+		await Listing.findByIdAndUpdate(req.params.listingId, {
+			$push: { likedByUsers: req.params.userId },
+		})
+		res.redirect(`/listings/${req.params.listingId}`)
 	} catch (error) {
 		console.error(error)
 		res.redirect('/')

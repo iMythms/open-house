@@ -11,6 +11,24 @@
 
 		<h1>A listing in <%= listings.city %></h1>
 
+		<h2>Likes</h2>
+
+		<p>Liked by <%= listings.likedByUsers.length %> people.</p>
+
+		<% if (userHasLiked) { %>
+		<p>You've liked this listing!</p>
+		<% } else { %>
+		<p>You haven't liked this listing.</p>
+
+		<form
+			action="/listings/<%= listings._id %>/liked-by/<%= user._id %>"
+			method="POST"
+		>
+			<button type="submit" id="like-button">❤️</button>
+		</form>
+
+		<% } %>
+
 		<h2>Details</h2>
 		<p>House Size: <%= listings.size %> sq mtr</p>
 		<p>Price: BHD <%= listings.price %></p>
