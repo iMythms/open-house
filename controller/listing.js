@@ -97,4 +97,16 @@ router.post('/:listingId/liked-by/:userId', async (req, res) => {
 	}
 })
 
+router.delete('/:listingId/liked-by/:userId', async (req, res) => {
+	try {
+		await Listing.findByIdAndUpdate(req.params.listingId, {
+			$pull: { likedByUsers: req.params.userId },
+		})
+		res.redirect(`/listings/${req.params.listingId}`)
+	} catch (error) {
+		console.error(error)
+		res.redirect('/')
+	}
+})
+
 module.exports = router

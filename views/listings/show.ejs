@@ -17,6 +17,12 @@
 
 		<% if (userHasLiked) { %>
 		<p>You've liked this listing!</p>
+		<form
+			action="/listings/<%= listings._id %>/liked-by/<%= user._id %>?_method=DELETE"
+			method="POST"
+		>
+			<button type="submit">💔</button>
+		</form>
 		<% } else { %>
 		<p>You haven't liked this listing.</p>
 
@@ -24,7 +30,7 @@
 			action="/listings/<%= listings._id %>/liked-by/<%= user._id %>"
 			method="POST"
 		>
-			<button type="submit" id="like-button">❤️</button>
+			<button type="submit">❤️</button>
 		</form>
 
 		<% } %>
